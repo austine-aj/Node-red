@@ -1,0 +1,772 @@
+[
+    {
+        "id": "dc3c5d8e4663d5c4",
+        "type": "tab",
+        "label": "weather station",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a6e66e24.246eb",
+        "type": "ui_chart",
+        "z": "dc3c5d8e4663d5c4",
+        "name": "Temperature Chart",
+        "group": "c467b276.39485",
+        "order": 2,
+        "width": "4",
+        "height": "3",
+        "label": "",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "10",
+        "ymax": "40",
+        "removeOlder": "8",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 2,
+        "x": 650,
+        "y": 280,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "56590d76.972014",
+        "type": "mqtt in",
+        "z": "dc3c5d8e4663d5c4",
+        "name": "",
+        "topic": "weatherStation/temperature",
+        "qos": "1",
+        "broker": "171132c7.ece67d",
+        "inputs": 0,
+        "x": 147.9998550415039,
+        "y": 243.666748046875,
+        "wires": [
+            [
+                "a6e66e24.246eb",
+                "4e7da728.df7028",
+                "f62c1c11.ee6cb"
+            ]
+        ]
+    },
+    {
+        "id": "aa8c644f.d09798",
+        "type": "mqtt in",
+        "z": "dc3c5d8e4663d5c4",
+        "name": "",
+        "topic": "weatherStation/humidity",
+        "qos": "1",
+        "broker": "171132c7.ece67d",
+        "inputs": 0,
+        "x": 139.83313751220703,
+        "y": 153.66664505004883,
+        "wires": [
+            [
+                "af9c7600.6c5cf8",
+                "f62c1c11.ee6cb",
+                "1112abd4.01dd04"
+            ]
+        ]
+    },
+    {
+        "id": "f2c9049d.343428",
+        "type": "ui_chart",
+        "z": "dc3c5d8e4663d5c4",
+        "name": "Humidity Chart",
+        "group": "c467b276.39485",
+        "order": 4,
+        "width": "4",
+        "height": "3",
+        "label": "",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "8",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "x": 640.8331642150879,
+        "y": 186.66663074493408,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "175b6880.a5b6c8",
+        "type": "mqtt in",
+        "z": "dc3c5d8e4663d5c4",
+        "name": "",
+        "topic": "weatherStation/#",
+        "qos": "1",
+        "broker": "171132c7.ece67d",
+        "inputs": 0,
+        "x": 106.83321762084961,
+        "y": 510.66680335998535,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6ffbf102.708af",
+        "type": "mqtt in",
+        "z": "dc3c5d8e4663d5c4",
+        "name": "",
+        "topic": "weatherStation/pressure",
+        "qos": "1",
+        "broker": "171132c7.ece67d",
+        "inputs": 0,
+        "x": 138.8331069946289,
+        "y": 342.66654872894287,
+        "wires": [
+            [
+                "494cb1a9.47f47"
+            ]
+        ]
+    },
+    {
+        "id": "b82a7caa.2821e",
+        "type": "ui_chart",
+        "z": "dc3c5d8e4663d5c4",
+        "name": "Pressure Chart",
+        "group": "c467b276.39485",
+        "order": 6,
+        "width": "4",
+        "height": "3",
+        "label": "",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "900",
+        "ymax": "1100",
+        "removeOlder": "8",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 2,
+        "x": 644.0000076293945,
+        "y": 373.9998836517334,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "494cb1a9.47f47",
+        "type": "function",
+        "z": "dc3c5d8e4663d5c4",
+        "name": "pascal to hecto",
+        "func": "msg.payload *= 0.01;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 401.9998321533203,
+        "y": 344.33325481414795,
+        "wires": [
+            [
+                "b82a7caa.2821e",
+                "31d0bf64.cd69a",
+                "f62c1c11.ee6cb"
+            ]
+        ]
+    },
+    {
+        "id": "ab3492b0.fa195",
+        "type": "ui_gauge",
+        "z": "dc3c5d8e4663d5c4",
+        "name": "",
+        "group": "c467b276.39485",
+        "order": 3,
+        "width": "2",
+        "height": "3",
+        "gtype": "wave",
+        "title": "Humidity",
+        "label": "%",
+        "format": "{{value|number:1}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#5a5a5a",
+            "#34b92d",
+            "#0202ff"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 617.9998359680176,
+        "y": 136.6665563583374,
+        "wires": []
+    },
+    {
+        "id": "4e7da728.df7028",
+        "type": "ui_gauge",
+        "z": "dc3c5d8e4663d5c4",
+        "name": "",
+        "group": "c467b276.39485",
+        "order": 1,
+        "width": "2",
+        "height": "3",
+        "gtype": "gage",
+        "title": "Temperature",
+        "label": "°C",
+        "format": "{{value|number:1}}",
+        "min": "-20",
+        "max": "50",
+        "colors": [
+            "#0000ff",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "0",
+        "seg2": "30",
+        "x": 629.9998435974121,
+        "y": 234.66656303405762,
+        "wires": []
+    },
+    {
+        "id": "31d0bf64.cd69a",
+        "type": "ui_gauge",
+        "z": "dc3c5d8e4663d5c4",
+        "name": "",
+        "group": "c467b276.39485",
+        "order": 5,
+        "width": "2",
+        "height": "3",
+        "gtype": "gage",
+        "title": "Pressure",
+        "label": "hPa",
+        "format": "{{value|number:2}}",
+        "min": "900",
+        "max": "1100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 621.9998435974121,
+        "y": 330.66658782958984,
+        "wires": []
+    },
+    {
+        "id": "442a7dcc.09d934",
+        "type": "mqtt in",
+        "z": "dc3c5d8e4663d5c4",
+        "name": "",
+        "topic": "weatherStation/light",
+        "qos": "1",
+        "broker": "171132c7.ece67d",
+        "inputs": 0,
+        "x": 118.83309936523438,
+        "y": 424.66659355163574,
+        "wires": [
+            [
+                "dff18ee1.f7d5d",
+                "f62c1c11.ee6cb"
+            ]
+        ]
+    },
+    {
+        "id": "dff18ee1.f7d5d",
+        "type": "ui_gauge",
+        "z": "dc3c5d8e4663d5c4",
+        "name": "",
+        "group": "c467b276.39485",
+        "order": 8,
+        "width": "2",
+        "height": "3",
+        "gtype": "gage",
+        "title": "Light",
+        "label": "",
+        "format": "{{value|number:2}}",
+        "min": "0",
+        "max": "1",
+        "colors": [
+            "#000080",
+            "#c0c0c0",
+            "#ffff80"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 614.8331680297852,
+        "y": 422.66659355163574,
+        "wires": []
+    },
+    {
+        "id": "7f4769a3.5900d8",
+        "type": "mqtt in",
+        "z": "dc3c5d8e4663d5c4",
+        "name": "",
+        "topic": "humiditySensor/humidity",
+        "qos": "1",
+        "broker": "171132c7.ece67d",
+        "inputs": 0,
+        "x": 113.99968719482422,
+        "y": 637.6666059494019,
+        "wires": [
+            [
+                "b4ad1c70.ca013"
+            ]
+        ]
+    },
+    {
+        "id": "1acc878a.73f7c8",
+        "type": "mqtt in",
+        "z": "dc3c5d8e4663d5c4",
+        "name": "",
+        "topic": "humiditySensor/temperature",
+        "qos": "1",
+        "broker": "171132c7.ece67d",
+        "inputs": 0,
+        "x": 122.83304595947266,
+        "y": 724.666651725769,
+        "wires": [
+            [
+                "38bfc86e.685758"
+            ]
+        ]
+    },
+    {
+        "id": "25ea93a.176966c",
+        "type": "mqtt in",
+        "z": "dc3c5d8e4663d5c4",
+        "name": "",
+        "topic": "humiditySensor/voltage",
+        "qos": "1",
+        "broker": "171132c7.ece67d",
+        "inputs": 0,
+        "x": 96.83309936523438,
+        "y": 812.6666574478149,
+        "wires": [
+            [
+                "aa7ede7b.d0f11"
+            ]
+        ]
+    },
+    {
+        "id": "b06806b3.c4ff58",
+        "type": "ui_chart",
+        "z": "dc3c5d8e4663d5c4",
+        "name": "Humidity Chart",
+        "group": "f440b0b0.67c6e",
+        "order": 7,
+        "width": "4",
+        "height": "3",
+        "label": "",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "8",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 2,
+        "x": 614.8329544067383,
+        "y": 674.666446685791,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "2f8eb7d1.cd2218",
+        "type": "ui_gauge",
+        "z": "dc3c5d8e4663d5c4",
+        "name": "",
+        "group": "f440b0b0.67c6e",
+        "order": 6,
+        "width": "2",
+        "height": "3",
+        "gtype": "wave",
+        "title": "Humidity",
+        "label": "%",
+        "format": "{{value|number:1}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#5a5a5a",
+            "#34b92d",
+            "#0202ff"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 591.999626159668,
+        "y": 624.6663722991943,
+        "wires": []
+    },
+    {
+        "id": "aa7ede7b.d0f11",
+        "type": "function",
+        "z": "dc3c5d8e4663d5c4",
+        "name": "scale",
+        "func": "msg.payload *= 3.304 / 2788;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 369.99966049194336,
+        "y": 817.6666584014893,
+        "wires": [
+            [
+                "ce445d5d.65cd4"
+            ]
+        ]
+    },
+    {
+        "id": "ce445d5d.65cd4",
+        "type": "ui_gauge",
+        "z": "dc3c5d8e4663d5c4",
+        "name": "",
+        "group": "f440b0b0.67c6e",
+        "order": 10,
+        "width": "2",
+        "height": "3",
+        "gtype": "gage",
+        "title": "Voltage",
+        "label": "V",
+        "format": "{{value|number:2}}",
+        "min": "0",
+        "max": "3.6",
+        "colors": [
+            "#8e0000",
+            "#e3e300",
+            "#00c400"
+        ],
+        "seg1": "2.5",
+        "seg2": "3",
+        "x": 620.8330879211426,
+        "y": 824.666576385498,
+        "wires": []
+    },
+    {
+        "id": "6f47ae7f.40cd2",
+        "type": "ui_chart",
+        "z": "dc3c5d8e4663d5c4",
+        "name": "Temperature Chart",
+        "group": "f440b0b0.67c6e",
+        "order": 5,
+        "width": "4",
+        "height": "3",
+        "label": "",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "10",
+        "ymax": "40",
+        "removeOlder": "8",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 2,
+        "x": 626.8330001831055,
+        "y": 766.6665115356445,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "54a13ddb.33d9c4",
+        "type": "ui_gauge",
+        "z": "dc3c5d8e4663d5c4",
+        "name": "",
+        "group": "f440b0b0.67c6e",
+        "order": 4,
+        "width": "2",
+        "height": "3",
+        "gtype": "gage",
+        "title": "Temperature",
+        "label": "°C",
+        "format": "{{value|number:1}}",
+        "min": "-20",
+        "max": "50",
+        "colors": [
+            "#0000ff",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "0",
+        "seg2": "30",
+        "x": 606.8328437805176,
+        "y": 721.3330745697021,
+        "wires": []
+    },
+    {
+        "id": "e1dc9a15.31a108",
+        "type": "function",
+        "z": "dc3c5d8e4663d5c4",
+        "name": "state to finished html icon",
+        "func": "//this one is buggy\n//I will fix it with the weather station video\n\nvar moon = \"&#127769;\";\nvar rain = \"&#127783;\";\nvar sun = \"&#127774\";\nvar cloud = \"&#9925;\";\n\ncontext.humidity = context.humidity | 50;\ncontext.light = context.light | 0.5;\ncontext.pressure = context.pressure | 1000;\n\nif(msg.topic === 'humidity' && msg.payload != 'nan')\n context.humidity = msg.payload;\nif(msg.topic === 'light' && msg.payload != 'nan')\n context.light = msg.payload;\nif(msg.topic === 'pressure' && msg.payload != 'nan')\n context.pressure = msg.payload;\n\nif(context.humidity < 50)\n{\n //if(context.light > 0.1)\n msg.payload = sun;\n //else\n // msg.payload = moon;\n}\nelse \nif(context.humidity < 80)\n{\n //if(context.light > 0.1)\n msg.payload = cloud;\n //else\n // msg.payload = moon;\n}\nelse\n{\n msg.payload = rain;\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 714.8329544067383,
+        "y": 509.666446685791,
+        "wires": [
+            [
+                "85c7cf27.1e66e"
+            ]
+        ]
+    },
+    {
+        "id": "f62c1c11.ee6cb",
+        "type": "change",
+        "z": "dc3c5d8e4663d5c4",
+        "name": "translate topic",
+        "rules": [
+            {
+                "t": "change",
+                "p": "topic",
+                "pt": "msg",
+                "from": "wheatherStation/humidity",
+                "fromt": "str",
+                "to": "humidity",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "topic",
+                "pt": "msg",
+                "from": "wheatherStation/temperature",
+                "fromt": "str",
+                "to": "temperature",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "topic",
+                "pt": "msg",
+                "from": "wheatherStation/light",
+                "fromt": "str",
+                "to": "light",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "topic",
+                "pt": "msg",
+                "from": "wheatherStation/pressure",
+                "fromt": "str",
+                "to": "pressure",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 450.8329544067383,
+        "y": 510.666446685791,
+        "wires": [
+            [
+                "e1dc9a15.31a108"
+            ]
+        ]
+    },
+    {
+        "id": "85c7cf27.1e66e",
+        "type": "ui_template",
+        "z": "dc3c5d8e4663d5c4",
+        "group": "c467b276.39485",
+        "name": "Weather symbol",
+        "order": 7,
+        "width": "3",
+        "height": "3",
+        "format": "<div ng-bind-html=\"msg.payload\" style=\"font-size: 50pt\"></div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 966.8329544067383,
+        "y": 503.666446685791,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1112abd4.01dd04",
+        "type": "debug",
+        "z": "dc3c5d8e4663d5c4",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 1043.9997024536133,
+        "y": 242.66644668579102,
+        "wires": []
+    },
+    {
+        "id": "af9c7600.6c5cf8",
+        "type": "smooth",
+        "z": "dc3c5d8e4663d5c4",
+        "name": "",
+        "property": "payload",
+        "action": "mean",
+        "count": "100",
+        "round": "",
+        "mult": "single",
+        "reduce": false,
+        "x": 385.99974060058594,
+        "y": 153.6665210723877,
+        "wires": [
+            [
+                "f2c9049d.343428",
+                "ab3492b0.fa195"
+            ]
+        ]
+    },
+    {
+        "id": "b4ad1c70.ca013",
+        "type": "smooth",
+        "z": "dc3c5d8e4663d5c4",
+        "name": "",
+        "action": "mean",
+        "count": "6",
+        "round": "",
+        "mult": "single",
+        "x": 359.9995307922363,
+        "y": 641.6663370132446,
+        "wires": [
+            [
+                "b06806b3.c4ff58",
+                "2f8eb7d1.cd2218"
+            ]
+        ]
+    },
+    {
+        "id": "38bfc86e.685758",
+        "type": "smooth",
+        "z": "dc3c5d8e4663d5c4",
+        "name": "",
+        "action": "mean",
+        "count": "6",
+        "round": "",
+        "mult": "single",
+        "x": 354.8330764770508,
+        "y": 730.6665706634521,
+        "wires": [
+            [
+                "54a13ddb.33d9c4",
+                "6f47ae7f.40cd2"
+            ]
+        ]
+    },
+    {
+        "id": "c467b276.39485",
+        "type": "ui_group",
+        "name": "Outside",
+        "tab": "7894fc0d.fc8084",
+        "order": 2,
+        "disp": true,
+        "width": "7"
+    },
+    {
+        "id": "171132c7.ece67d",
+        "type": "mqtt-broker",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "f440b0b0.67c6e",
+        "type": "ui_group",
+        "name": "Bathroom",
+        "tab": "7894fc0d.fc8084",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "7894fc0d.fc8084",
+        "type": "ui_tab",
+        "name": "Climate",
+        "icon": "dashboard",
+        "order": 1
+    }
+]

@@ -1,0 +1,508 @@
+[
+    {
+        "id": "aec9d9b1cd8758ff",
+        "type": "tab",
+        "label": "washing machine",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "784e56c4f2b541e4",
+        "type": "inject",
+        "z": "aec9d9b1cd8758ff",
+        "name": "",
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "topic": "tick",
+        "payload": "",
+        "payloadType": "date",
+        "x": 500,
+        "y": 820,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7525e77762c20906",
+        "type": "ui_template",
+        "z": "aec9d9b1cd8758ff",
+        "group": "906f34cbae721219",
+        "name": "reduce countdown",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "format": "<input ng-model=\"me.item.value\" type=\"datetime-local\" style=\"z-index: 1;\" ng-change=\"send(me.item.value)\">",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 752.0001792907715,
+        "y": 660.6665773391724,
+        "wires": [
+            [
+                "1b0e18ade61070a1",
+                "b7ac0f1cc400b57b"
+            ]
+        ]
+    },
+    {
+        "id": "1b0e18ade61070a1",
+        "type": "ui_text",
+        "z": "aec9d9b1cd8758ff",
+        "group": "906f34cbae721219",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "name": "countdown",
+        "label": "Countdown",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 981.1667022705078,
+        "y": 656.9999914169312,
+        "wires": []
+    },
+    {
+        "id": "ebc64dbec706c1ea",
+        "type": "ui_switch",
+        "z": "aec9d9b1cd8758ff",
+        "name": "",
+        "label": "Enable timer",
+        "group": "906f34cbae721219",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "active",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 630,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5d5204d501fc4fc4",
+        "type": "mqtt in",
+        "z": "aec9d9b1cd8758ff",
+        "name": "",
+        "topic": "washingMachine/led1",
+        "qos": "1",
+        "broker": "171132c7.ece67d",
+        "inputs": 0,
+        "x": 111.99964904785156,
+        "y": 153.9997911453247,
+        "wires": [
+            [
+                "6665273c8253980d",
+                "8860bd028bed42f5"
+            ]
+        ]
+    },
+    {
+        "id": "3ca720c6274c3b06",
+        "type": "mqtt in",
+        "z": "aec9d9b1cd8758ff",
+        "name": "",
+        "topic": "washingMachine/led2",
+        "qos": "1",
+        "broker": "171132c7.ece67d",
+        "inputs": 0,
+        "x": 115.99968719482422,
+        "y": 85.99983501434326,
+        "wires": [
+            [
+                "447fe339a4af5c9b"
+            ]
+        ]
+    },
+    {
+        "id": "9e8db0b88948c324",
+        "type": "mqtt in",
+        "z": "aec9d9b1cd8758ff",
+        "name": "",
+        "topic": "washingMachine/led3",
+        "qos": "1",
+        "broker": "171132c7.ece67d",
+        "inputs": 0,
+        "x": 119.9996109008789,
+        "y": 19.999778747558594,
+        "wires": [
+            [
+                "57e199d6f776ac69"
+            ]
+        ]
+    },
+    {
+        "id": "3961ef9949076d4c",
+        "type": "ui_toast",
+        "z": "aec9d9b1cd8758ff",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "topic": "",
+        "name": "",
+        "x": 1285.1665496826172,
+        "y": 264.9998893737793,
+        "wires": []
+    },
+    {
+        "id": "fcae7034084616bc",
+        "type": "ui_switch",
+        "z": "aec9d9b1cd8758ff",
+        "name": "",
+        "label": "Notification",
+        "group": "906f34cbae721219",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "notify",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 777.1669998168945,
+        "y": 238.99988651275635,
+        "wires": [
+            [
+                "8860bd028bed42f5"
+            ]
+        ]
+    },
+    {
+        "id": "9b8fa7f5fd8c71f8",
+        "type": "ui_button",
+        "z": "aec9d9b1cd8758ff",
+        "name": "",
+        "group": "906f34cbae721219",
+        "order": 4,
+        "width": "3",
+        "height": "1",
+        "passthru": false,
+        "label": "Start/Stop",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "1",
+        "payloadType": "str",
+        "topic": "",
+        "x": 1020,
+        "y": 400,
+        "wires": [
+            [
+                "a6fb1547074ee792",
+                "023be712938626b8"
+            ]
+        ]
+    },
+    {
+        "id": "023be712938626b8",
+        "type": "mqtt out",
+        "z": "aec9d9b1cd8758ff",
+        "name": "",
+        "topic": "washingMachine/servo",
+        "qos": "1",
+        "retain": "false",
+        "broker": "171132c7.ece67d",
+        "x": 1285.1665496826172,
+        "y": 410.99989318847656,
+        "wires": []
+    },
+    {
+        "id": "a6fb1547074ee792",
+        "type": "function",
+        "z": "aec9d9b1cd8758ff",
+        "name": "Stop Countdown",
+        "func": "msg.topic = \"active\";\nmsg.payload = false;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1279.1665420532227,
+        "y": 579.9999866485596,
+        "wires": [
+            [
+                "ebc64dbec706c1ea"
+            ]
+        ]
+    },
+    {
+        "id": "b7ac0f1cc400b57b",
+        "type": "function",
+        "z": "aec9d9b1cd8758ff",
+        "name": "start if countdown 0",
+        "func": "if(msg.payload === 0)\n{\n msg.payload = \"1\";\n return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 993.1665344238281,
+        "y": 581.9999856948853,
+        "wires": [
+            [
+                "a6fb1547074ee792",
+                "023be712938626b8"
+            ]
+        ]
+    },
+    {
+        "id": "49ea32e3189f0e52",
+        "type": "ui_template",
+        "z": "aec9d9b1cd8758ff",
+        "group": "906f34cbae721219",
+        "name": "door icon",
+        "order": 1,
+        "width": "1",
+        "height": "1",
+        "format": "",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 749.1663818359375,
+        "y": 20.99979591369629,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "57e199d6f776ac69",
+        "type": "function",
+        "z": "aec9d9b1cd8758ff",
+        "name": "state to lock html icon",
+        "func": "if(msg.payload === '0')\n msg.template = '<ui-icon icon=\"lock_open\"></ui-icon>';\nelse\n msg.template = '<ui-icon icon=\"lock\"></ui-icon>';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 445.1665267944336,
+        "y": 20.666489601135254,
+        "wires": [
+            [
+                "49ea32e3189f0e52"
+            ]
+        ]
+    },
+    {
+        "id": "447fe339a4af5c9b",
+        "type": "function",
+        "z": "aec9d9b1cd8758ff",
+        "name": "state to washing html icon",
+        "func": "if(msg.payload === '0')\n msg.template = '<ui-icon icon=\"crop_square\"></ui-icon>';\nelse\n msg.template = '<ui-icon icon=\"play_arrow\"></ui-icon>';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 453.9996643066406,
+        "y": 81.99979496002197,
+        "wires": [
+            [
+                "78989f7a0ff04676"
+            ]
+        ]
+    },
+    {
+        "id": "6665273c8253980d",
+        "type": "function",
+        "z": "aec9d9b1cd8758ff",
+        "name": "state to finished html icon",
+        "func": "if(msg.payload === '0')\n msg.template = '<ui-icon icon=\"hourglass_empty\"></ui-icon>';\nelse\n msg.template = '<ui-icon icon=\"done_all\"></ui-icon>';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 461.99962615966797,
+        "y": 157.99978733062744,
+        "wires": [
+            [
+                "03088d166d13c964"
+            ]
+        ]
+    },
+    {
+        "id": "78989f7a0ff04676",
+        "type": "ui_template",
+        "z": "aec9d9b1cd8758ff",
+        "group": "906f34cbae721219",
+        "name": "washing icon",
+        "order": 2,
+        "width": "1",
+        "height": "1",
+        "format": "",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 759.9997634887695,
+        "y": 83.99980449676514,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "03088d166d13c964",
+        "type": "ui_template",
+        "z": "aec9d9b1cd8758ff",
+        "group": "906f34cbae721219",
+        "name": "finished icon",
+        "order": 3,
+        "width": "1",
+        "height": "1",
+        "format": "",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 753.9996871948242,
+        "y": 157.9997968673706,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "de6ae20a4695637f",
+        "type": "mqtt in",
+        "z": "aec9d9b1cd8758ff",
+        "name": "",
+        "topic": "washingMachine/servo",
+        "qos": "1",
+        "broker": "171132c7.ece67d",
+        "inputs": 0,
+        "x": 113.9996566772461,
+        "y": 229.9998426437378,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8860bd028bed42f5",
+        "type": "function",
+        "z": "aec9d9b1cd8758ff",
+        "name": "notify when finished",
+        "func": "context.notifyMe = context.notifyMe || false;\nif(msg.topic === 'notify')\n context.notifyMe = msg.payload;\n \nif(msg.topic === 'washingMachine/led1' && msg.payload === \"1\" && context.notifyMe)\n{\n msg.topic = 'notify';\n msg.payload = false;\n return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 787.9996871948242,
+        "y": 325.99981212615967,
+        "wires": [
+            [
+                "fcae7034084616bc",
+                "aa2d3732da0395d7"
+            ]
+        ]
+    },
+    {
+        "id": "aa2d3732da0395d7",
+        "type": "function",
+        "z": "aec9d9b1cd8758ff",
+        "name": "notification message",
+        "func": "msg.topic = 'Washing Machine';\nmsg.payload = 'Finished washing!';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1055.1665344238281,
+        "y": 316.9998893737793,
+        "wires": [
+            [
+                "3961ef9949076d4c",
+                "f5cf781cb74d4bda"
+            ]
+        ]
+    },
+    {
+        "id": "f5cf781cb74d4bda",
+        "type": "ui_audio",
+        "z": "aec9d9b1cd8758ff",
+        "name": "Audio",
+        "group": "906f34cbae721219",
+        "voice": "2",
+        "always": true,
+        "x": 1263.1663818359375,
+        "y": 349.33318424224854,
+        "wires": []
+    },
+    {
+        "id": "88b00ff866a3086b",
+        "type": "function",
+        "z": "aec9d9b1cd8758ff",
+        "name": "time string to millis",
+        "func": "var d = new Date(msg.payload); \nmsg.topic = \"teargetTimestamp\"\nmsg.payload = d.getTime();\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 269.99966049194336,
+        "y": 653.9998631477356,
+        "wires": [
+            [
+                "13ad1575aa468a44"
+            ]
+        ]
+    },
+    {
+        "id": "7a0623297260c0f2",
+        "type": "function",
+        "z": "aec9d9b1cd8758ff",
+        "name": "msg",
+        "func": "\nreturn {topic: '', payload: msg};",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 91.99930191040039,
+        "y": 651.3329963684082,
+        "wires": [
+            [
+                "88b00ff866a3086b"
+            ]
+        ]
+    },
+    {
+        "id": "13ad1575aa468a44",
+        "type": "function",
+        "z": "aec9d9b1cd8758ff",
+        "name": "set countdown in seconds",
+        "func": "msg.topic = \"countdown\";\nmsg.payload = Math.floor(((msg.payload - Date.now()) / 1000));\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 499.9995765686035,
+        "y": 651.9998254776001,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "906f34cbae721219",
+        "type": "ui_group",
+        "name": "Washing Machine",
+        "tab": "fe0f07ce7b0bc5ac",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "171132c7.ece67d",
+        "type": "mqtt-broker",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "fe0f07ce7b0bc5ac",
+        "type": "ui_tab",
+        "name": "Washing Machine",
+        "icon": "dashboard",
+        "order": 2
+    }
+]

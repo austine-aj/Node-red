@@ -1,0 +1,254 @@
+[
+    {
+        "id": "279d0ea8.c23d82",
+        "type": "tab",
+        "label": "Flow 3",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "457d9ad6.b737b4",
+        "type": "inject",
+        "z": "279d0ea8.c23d82",
+        "name": "single",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "12 32 12",
+        "payloadType": "str",
+        "x": 150,
+        "y": 120,
+        "wires": [
+            [
+                "be70a5ed794c89ef"
+            ]
+        ]
+    },
+    {
+        "id": "e9546682.b39898",
+        "type": "csv",
+        "z": "279d0ea8.c23d82",
+        "name": "",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "once",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "test1,test2,test3",
+        "skip": "1",
+        "strings": true,
+        "include_empty_strings": false,
+        "include_null_values": false,
+        "x": 470,
+        "y": 120,
+        "wires": [
+            [
+                "e7b92320c3790105"
+            ]
+        ]
+    },
+    {
+        "id": "f83ad3b0.78d32",
+        "type": "debug",
+        "z": "279d0ea8.c23d82",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 850,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "ae242f2c.d1c8a",
+        "type": "inject",
+        "z": "279d0ea8.c23d82",
+        "name": "array",
+        "props": [
+            {
+                "p": "payload",
+                "v": "",
+                "vt": "date"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 90,
+        "y": 220,
+        "wires": [
+            [
+                "7535f521.4a88bc"
+            ]
+        ]
+    },
+    {
+        "id": "7535f521.4a88bc",
+        "type": "change",
+        "z": "279d0ea8.c23d82",
+        "name": "Generate array payload",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\t    { \"a\":$floor(100*$random()),\"b\":$floor(100*$random()),\"c\":$floor(100*$random())},\t    { \"a\":$floor(100*$random()),\"b\":$floor(100*$random()),\"c\":$floor(100*$random())},\t    { \"a\":$floor(100*$random()),\"b\":$floor(100*$random()),\"c\":$floor(100*$random())},\t    { \"a\":$floor(100*$random()),\"b\":$floor(100*$random()),\"c\":$floor(100*$random())}\t]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 270,
+        "y": 220,
+        "wires": [
+            [
+                "f4e0465f.ef0338"
+            ]
+        ]
+    },
+    {
+        "id": "f4e0465f.ef0338",
+        "type": "csv",
+        "z": "279d0ea8.c23d82",
+        "name": "",
+        "sep": ",",
+        "hdrin": false,
+        "hdrout": "all",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "a,b,c",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": false,
+        "include_null_values": false,
+        "x": 450,
+        "y": 220,
+        "wires": [
+            [
+                "eee79f8c8e211b6d"
+            ]
+        ]
+    },
+    {
+        "id": "6eb67fdf.58626",
+        "type": "debug",
+        "z": "279d0ea8.c23d82",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 890,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "e7b92320c3790105",
+        "type": "file",
+        "z": "279d0ea8.c23d82",
+        "name": "",
+        "filename": "D:\\new\\op1.csv",
+        "appendNewline": false,
+        "createDir": true,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 640,
+        "y": 120,
+        "wires": [
+            [
+                "f83ad3b0.78d32"
+            ]
+        ]
+    },
+    {
+        "id": "8a174702cd02f2b5",
+        "type": "change",
+        "z": "279d0ea8.c23d82",
+        "name": "Generate single payload",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{ \"a\":$floor(100*$random()),\"b\":$floor(100*$random()),\"c\":$floor(100*$random())}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 130,
+        "y": 300,
+        "wires": [
+            [
+                "6eb67fdf.58626"
+            ]
+        ]
+    },
+    {
+        "id": "be70a5ed794c89ef",
+        "type": "function",
+        "z": "279d0ea8.c23d82",
+        "name": "",
+        "func": "var data=msg.payload;\nmsg.payload= {test1 :parseInt(data.slice(0,2)), test2 :parseInt(data.slice(3,5)),test3 :parseInt(data.slice(6,8))};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 120,
+        "wires": [
+            [
+                "e9546682.b39898",
+                "6eb67fdf.58626"
+            ]
+        ]
+    },
+    {
+        "id": "eee79f8c8e211b6d",
+        "type": "file",
+        "z": "279d0ea8.c23d82",
+        "name": "",
+        "filename": "D:\\new\\op1.csv",
+        "appendNewline": false,
+        "createDir": true,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 600,
+        "y": 220,
+        "wires": [
+            [
+                "6eb67fdf.58626"
+            ]
+        ]
+    }
+]
