@@ -1,0 +1,805 @@
+[
+    {
+        "id": "874e3da815401dd8",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "9bc146d19aa3e631",
+        "type": "modbus-read",
+        "z": "874e3da815401dd8",
+        "name": "(32 bit float)",
+        "topic": "",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "2",
+        "dataType": "HoldingRegister",
+        "adr": "3025",
+        "quantity": "2",
+        "rate": "5",
+        "rateUnit": "s",
+        "delayOnStart": true,
+        "startDelayTime": "10",
+        "server": "a0737e46.57122",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 110,
+        "y": 120,
+        "wires": [
+            [
+                "58ef3437fd38d695",
+                "abb0e7d14b8cc7df"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "488cd7f9fb80e1a4",
+        "type": "function",
+        "z": "874e3da815401dd8",
+        "name": "",
+        "func": "/* Converts from an number, string, buffer or array representing an IEEE-754 value\n * to a javascript float.\n * The following may be given in msg.payload:\n *      A string representing a number, which may be hex or binary\n *        examples, \"1735\"  \"0x02045789\"  0b01000000010010010000111111011011\n *      An integer value\n *      A four element array or buffer of 8 bit values, most significant byte first.\n*/ \n// first make a number from the given payload if necessary\nlet intValue;\nif (typeof msg.payload === \"number\") {\n    intValue = msg.payload;\n} else if (typeof msg.payload === \"string\") {\n    intValue = Number(msg.payload);\n} else if (msg.payload.length == 4) {\n    // four byte array or buffer\n    intValue = (((((msg.payload[0] << 8) + msg.payload[1]) << 8) + msg.payload[2]) << 8) + msg.payload[3];\n} else {\n    node.warn(\"Unrecognised payload type or length\");\n}\n\nmsg.payload = Int2Float32(intValue);\nreturn msg;\n\nfunction Int2Float32(bytes) {\n    var sign = (bytes & 0x80000000) ? -1 : 1;\n    var exponent = ((bytes >> 23) & 0xFF) - 127;\n    var significand = (bytes & ~(-1 << 23));\n\n    if (exponent == 128) \n        return sign * ((significand) ? Number.NaN : Number.POSITIVE_INFINITY);\n\n    if (exponent == -127) {\n        if (significand === 0) return sign * 0.0;\n        exponent = -126;\n        significand /= (1 << 22);\n    } else significand = (significand | (1 << 23)) / (1 << 23);\n\n    return sign * significand * Math.pow(2, exponent);\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 240,
+        "y": 20,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "24c1bf1e2c20fe33",
+        "type": "debug",
+        "z": "874e3da815401dd8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "58ef3437fd38d695",
+        "type": "function",
+        "z": "874e3da815401dd8",
+        "name": "",
+        "func": "if(msg.payload == \"\"){\n    msg.payload = 0;\n    return msg;\n    }\n\nelse{\n     var msg0 = (msg.payload[0]<<16)+msg.payload[1];\n     msg.payload=msg0;\n     return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 100,
+        "wires": [
+            [
+                "0a6706866d9668ea",
+                "24c1bf1e2c20fe33"
+            ]
+        ]
+    },
+    {
+        "id": "0a6706866d9668ea",
+        "type": "toFloat",
+        "z": "874e3da815401dd8",
+        "name": "",
+        "toFixed": "2",
+        "x": 510,
+        "y": 80,
+        "wires": [
+            [
+                "51f1786305dd69c1",
+                "460433f4a6af2eb2",
+                "1eabcdb4b884c822"
+            ]
+        ]
+    },
+    {
+        "id": "51f1786305dd69c1",
+        "type": "function",
+        "z": "874e3da815401dd8",
+        "name": "",
+        "func": "var data = {\"V L-L avg\":msg.payload.toFixed(2)};\nmsg.payload = data;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 120,
+        "wires": [
+            [
+                "24c1bf1e2c20fe33"
+            ]
+        ]
+    },
+    {
+        "id": "460433f4a6af2eb2",
+        "type": "ui_gauge",
+        "z": "874e3da815401dd8",
+        "name": "",
+        "group": "da969b45a065582e",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "V L-L avg",
+        "label": "V",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "400",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "90",
+        "seg2": "100",
+        "className": "",
+        "x": 920,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "1eabcdb4b884c822",
+        "type": "ui_chart",
+        "z": "874e3da815401dd8",
+        "name": "",
+        "group": "da969b45a065582e",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "V L-L avg",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "400",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 940,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2caf2a9aaa8e5538",
+        "type": "modbus-read",
+        "z": "874e3da815401dd8",
+        "name": "test",
+        "topic": "",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "2",
+        "dataType": "HoldingRegister",
+        "adr": "3027",
+        "quantity": "2",
+        "rate": "10",
+        "rateUnit": "s",
+        "delayOnStart": true,
+        "startDelayTime": "10",
+        "server": "a0737e46.57122",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 110,
+        "y": 260,
+        "wires": [
+            [
+                "c44f41d9f60ad06f",
+                "d040966cfa5a628e"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "ce8d80ca3e3907ac",
+        "type": "debug",
+        "z": "874e3da815401dd8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 890,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "c44f41d9f60ad06f",
+        "type": "function",
+        "z": "874e3da815401dd8",
+        "name": "",
+        "func": "if(msg.payload == \"\"){\n    msg.payload = 0;\n    return msg;\n    }\n\nelse{\n     var msg0 = (msg.payload[0]<<16)+msg.payload[1];\n     msg.payload=msg0;\n     return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 240,
+        "wires": [
+            [
+                "e11edf6e5cc2f31b"
+            ]
+        ]
+    },
+    {
+        "id": "e11edf6e5cc2f31b",
+        "type": "toFloat",
+        "z": "874e3da815401dd8",
+        "name": "",
+        "toFixed": "2",
+        "x": 510,
+        "y": 240,
+        "wires": [
+            [
+                "ddf9593ad1035bef",
+                "aedfbf3340b1effc",
+                "11bf5bf1a2399d32"
+            ]
+        ]
+    },
+    {
+        "id": "ddf9593ad1035bef",
+        "type": "function",
+        "z": "874e3da815401dd8",
+        "name": "",
+        "func": "var data = {\"V A-N\":msg.payload.toFixed(2)};\nmsg.payload = data;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 280,
+        "wires": [
+            [
+                "ce8d80ca3e3907ac"
+            ]
+        ]
+    },
+    {
+        "id": "11bf5bf1a2399d32",
+        "type": "ui_chart",
+        "z": "874e3da815401dd8",
+        "name": "",
+        "group": "da969b45a065582e",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "V A-N",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "400",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 930,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "aedfbf3340b1effc",
+        "type": "ui_gauge",
+        "z": "874e3da815401dd8",
+        "name": "",
+        "group": "da969b45a065582e",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "V A-N ",
+        "label": "V",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "400",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "220",
+        "seg2": "260",
+        "className": "",
+        "x": 890,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "7e983dc8fe34f824",
+        "type": "modbus-read",
+        "z": "874e3da815401dd8",
+        "name": "test",
+        "topic": "",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "2",
+        "dataType": "HoldingRegister",
+        "adr": "2999",
+        "quantity": "2",
+        "rate": "15",
+        "rateUnit": "s",
+        "delayOnStart": true,
+        "startDelayTime": "10",
+        "server": "a0737e46.57122",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": true,
+        "x": 110,
+        "y": 420,
+        "wires": [
+            [
+                "b828cda82ff6c3f9",
+                "4ded44454afe5ab8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "1f25fb8b33250343",
+        "type": "debug",
+        "z": "874e3da815401dd8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 890,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "b828cda82ff6c3f9",
+        "type": "function",
+        "z": "874e3da815401dd8",
+        "name": "",
+        "func": "if(msg.payload == \"\"){\n    msg.payload = 0;\n    return msg;\n    }\n\nelse{\n     var msg0 = (msg.payload[0]<<16)+msg.payload[1];\n     msg.payload=msg0;\n     return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 400,
+        "wires": [
+            [
+                "2e307b80215f5492"
+            ]
+        ]
+    },
+    {
+        "id": "2e307b80215f5492",
+        "type": "toFloat",
+        "z": "874e3da815401dd8",
+        "name": "",
+        "toFixed": "3",
+        "x": 510,
+        "y": 400,
+        "wires": [
+            [
+                "3527f0e1bb47cb92",
+                "ad3ca56b4f8527c0",
+                "839427317d434a8b"
+            ]
+        ]
+    },
+    {
+        "id": "3527f0e1bb47cb92",
+        "type": "function",
+        "z": "874e3da815401dd8",
+        "name": "",
+        "func": "var data = {\"I A \":msg.payload.toFixed(2)};\nmsg.payload = data;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 440,
+        "wires": [
+            [
+                "1f25fb8b33250343"
+            ]
+        ]
+    },
+    {
+        "id": "839427317d434a8b",
+        "type": "ui_chart",
+        "z": "874e3da815401dd8",
+        "name": "",
+        "group": "da969b45a065582e",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "I A",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "4",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 930,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ad3ca56b4f8527c0",
+        "type": "ui_gauge",
+        "z": "874e3da815401dd8",
+        "name": "",
+        "group": "da969b45a065582e",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "I A",
+        "label": "I",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "4",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "90",
+        "seg2": "100",
+        "className": "",
+        "x": 890,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "78c31bc43716f9da",
+        "type": "debug",
+        "z": "874e3da815401dd8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 910,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "358d15db62f195cb",
+        "type": "function",
+        "z": "874e3da815401dd8",
+        "name": "",
+        "func": "if(msg.payload == \"\"){\n    msg.payload = 0;\n    return msg;\n    }\n\nelse{\n     var msg0 = (msg.payload[0]<<16)+msg.payload[1];\n     msg.payload=msg0;\n     return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 560,
+        "wires": [
+            [
+                "f0a649a47485b17a"
+            ]
+        ]
+    },
+    {
+        "id": "f0a649a47485b17a",
+        "type": "toFloat",
+        "z": "874e3da815401dd8",
+        "name": "",
+        "toFixed": "",
+        "x": 530,
+        "y": 560,
+        "wires": [
+            [
+                "ea5fe5a01ebaa20e",
+                "0c8c0e72826b6386",
+                "addba3d70d4496ea"
+            ]
+        ]
+    },
+    {
+        "id": "ea5fe5a01ebaa20e",
+        "type": "function",
+        "z": "874e3da815401dd8",
+        "name": "",
+        "func": "var data = {\"KW\":msg.payload};\nmsg.payload = data;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 600,
+        "wires": [
+            [
+                "78c31bc43716f9da"
+            ]
+        ]
+    },
+    {
+        "id": "addba3d70d4496ea",
+        "type": "ui_chart",
+        "z": "874e3da815401dd8",
+        "name": "",
+        "group": "da969b45a065582e",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "Active energy del",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "400",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 990,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0c8c0e72826b6386",
+        "type": "ui_gauge",
+        "z": "874e3da815401dd8",
+        "name": "",
+        "group": "da969b45a065582e",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Active energy del",
+        "label": "KW",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "400",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "90",
+        "seg2": "100",
+        "className": "",
+        "x": 950,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "f63082e03bb9200b",
+        "type": "modbus-read",
+        "z": "874e3da815401dd8",
+        "name": "test(64 bit float)",
+        "topic": "",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "2",
+        "dataType": "HoldingRegister",
+        "adr": "3203",
+        "quantity": "4",
+        "rate": "5",
+        "rateUnit": "s",
+        "delayOnStart": true,
+        "startDelayTime": "11",
+        "server": "a0737e46.57122",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "x": 160,
+        "y": 580,
+        "wires": [
+            [
+                "358d15db62f195cb"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "abb0e7d14b8cc7df",
+        "type": "modbus-response",
+        "z": "874e3da815401dd8",
+        "name": "",
+        "registerShowMax": 20,
+        "x": 170,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "d040966cfa5a628e",
+        "type": "modbus-response",
+        "z": "874e3da815401dd8",
+        "name": "",
+        "registerShowMax": 20,
+        "x": 251.01327514648438,
+        "y": 337.0177001953125,
+        "wires": []
+    },
+    {
+        "id": "4ded44454afe5ab8",
+        "type": "modbus-response",
+        "z": "874e3da815401dd8",
+        "name": "",
+        "registerShowMax": 20,
+        "x": 250,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "a13b8a6dac212c27",
+        "type": "comment",
+        "z": "874e3da815401dd8",
+        "name": "",
+        "info": "use 1 modbus read to read addresses and multiple function blocks, so that it will eliminate the problem of communication overlapping(which will cause cause error on other read blocks) and read error",
+        "x": 120,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "a0737e46.57122",
+        "type": "modbus-client",
+        "name": "modbus TCP client",
+        "clienttype": "simpleser",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "tcpHost": "192.168.1.10",
+        "tcpPort": "502",
+        "tcpType": "DEFAULT",
+        "serialPort": "COM9",
+        "serialType": "RTU",
+        "serialBaudrate": "9600",
+        "serialDatabits": "8",
+        "serialStopbits": "1",
+        "serialParity": "even",
+        "serialConnectionDelay": "100",
+        "serialAsciiResponseStartDelimiter": "",
+        "unit_id": "2",
+        "commandDelay": "1",
+        "clientTimeout": "1000",
+        "reconnectOnTimeout": false,
+        "reconnectTimeout": "2000",
+        "parallelUnitIdsAllowed": false
+    },
+    {
+        "id": "da969b45a065582e",
+        "type": "ui_group",
+        "name": "EMS",
+        "tab": "7894fc0d.fc8084",
+        "order": 3,
+        "disp": true,
+        "width": "7",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "7894fc0d.fc8084",
+        "type": "ui_tab",
+        "name": "meter 1",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
