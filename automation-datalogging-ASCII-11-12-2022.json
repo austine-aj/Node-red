@@ -1,0 +1,22 @@
+[
+    {
+        "id": "4a4e3c2723ce664a",
+        "type": "function",
+        "z": "a318595863e74787",
+        "name": "",
+        "func": "//let trans = global.get(\"Transaction\")\n// let x = global.get('Transaction.TotalizerVol');\nlet x = msg.payload;\nlet y = global.get('temp.TotalizerVol')\n//if(x != y){\n   // global.set(\"temp\",trans);\n//    msg.payload = JSON.stringify(global.get(\"temp\"));\n  //  return msg;\n//}\n //node.warn(\"equal\");\n \nmsg.payload = JSON.stringify(global.get('Transaction'));\n    return msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 660,
+        "wires": [
+            [
+                "45181d3c38dd253f",
+                "711f4ae3f41fe327"
+            ]
+        ]
+    }
+]
